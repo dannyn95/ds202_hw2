@@ -33,8 +33,23 @@ a0
 
 ## R commands
 1. Today's temperature has a high of 15 and a low of -10 degree fahrenheit.  Find the corresponding degress in celsius and storage it in a (single) vector named `cel`. Print the variable.
+
+```{r}
+cel <- c(-9.4444, -23.3333)
+cel
+```
+
 2. Create a vector of length 200. The odd entries should be 1 and even entries should be 0. Storage the created in a variable named `vec200` and print.
+
+```{r}
+vec200 <- rep(c(1, 0), length.out = 200)
+vec200
+```
 3. How many perfect squares are there between 1 and 1001? Storage the answer in a  variable named `numPerfect` and print. You may want to look at `?round`.
+```{r}
+numPerfect <- round(sqrt(1:1001), digits = 0)
+numPerfect
+```
 
 ## Cars and mileage
 For this part we will use the `mpg` data set, you can access the data by loading the package `ggplot2` into your R session by executing the command 
@@ -44,8 +59,32 @@ for the years 1999 and 2008 as collected by the US Environmental Protection Agen
 Most exercises are from the ggplot2 book section 2.2.1. You might find it helpful for working on the homework to read through this section. *However, all questions can be solved by using just the basic R graphics functions.*
 
 1. What are the 3 most fuel-efficient models in terms of highway mileage? Storage the data frame (with 3 rows) containing all information of these three cars in a variable named `top3` and print.
+```{r}
+library(ggplot2)
+top3 <- head(sort(mpg$hwy, decreasing = TRUE), 3)
+top3
+```
+
 2. How many different compact models are included in this dataset? Storage the answer in  a variable named `numCompact` and print.
+Based on the code, there are 7 different compact models.
+```{r}
+numCompact <- unique(mpg$class)
+numCompact
+```
+
 3. Create a scatterplot of `hwy` and `cty` and describe the relationship. Why are there so few points visible?
+The relationship is the comparison of mileage per gallon for both highway and city driving. Well based on my understanding, there are only a few points visible because of a few potential reasons. Those reasons consist of either a limited dataset, the scale of the graph has been limited, or some data points are overlapped because some of them have the same values. 
+```{r}
+plot(mpg$hwy, mpg$cty, main="Highway & City Miles Per Gallon", xlab="Highway", ylab="City" ,pch=19, col=c("red", "blue"))
+legend("topleft", legend = c("Highway: Red", "City: Blue"), col=c("red", "blue"))
+```
+
 4. Are cars in 2008 more fuel efficient than cars in 1999? Use graphs *and* summary statistics to answer this question. 
+Based on the summary statistics and graphs, Cars are a bit more fuel efficient in 2008 than in 1999. 
+```{r}
+summary(mpg)
+plot(mpg$year, mpg$hwy, main="Highway MPG based on Year", xlab="Year", ylab="Highway" ,pch=19)
+plot(mpg$year, mpg$cty, main="City MPG based on Year", xlab="Year", ylab="City" ,pch=19)
+```
 
 Note: your submission is supposed to be fully reproducible, i.e. the TA and I will 'knit' your submission. Make sure that you don't use any file structure that depends on your computing environment.
